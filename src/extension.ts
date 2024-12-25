@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import { EOL } from 'os';
-import { transformCase, caseTypes } from './transformCase';
 import { Transform } from './transform';
 import { Console } from 'console';
 
 
 const extensionNamespace = 'extension.changeCase';
+const transform = new Transform();
 
 async function changeTextCase(caseType: string) {
   console.log(`run case type ${caseType}`);
@@ -14,8 +14,6 @@ async function changeTextCase(caseType: string) {
     const document = editor.document;
     const selection = editor.selection;
     const selections = editor.selections;
-    const transform = new Transform();
-
 
     if (selection.isSingleLine || selections.length > 1) {
       editor.edit(editBuilder => {
@@ -54,13 +52,12 @@ async function changeTextCase(caseType: string) {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
- 
-  Object.entries(caseTypes).forEach(([key, value]) => {
-    console.log(key, value);
+  transform.caseTypes.forEach((value) => {
+    console.log(value);
     let commandId = `${extensionNamespace}.${value}`;
     let callback = function() { changeTextCase(value as string); };
   
-    console.log(key, value);
+    console.log(value);
     const disposable = vscode.commands.registerTextEditorCommand(commandId, callback);
     context.subscriptions.push(disposable);
   

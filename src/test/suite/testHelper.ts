@@ -1,31 +1,28 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as cases from "change-case";
-
+import { Transform, ConvertCaseType } from '../../transform';
 
 
 export class TestHelper {
 
-    public async basicTextTest(caseType: string) {
-        let text = 'hello world';
-        let expectedText;;
+    private transform: Transform;
 
-        if (caseType === 'camel') {
-           expectedText = 'helloWorld';
-        } else if (caseType === 'constant') {
-            expectedText = 'HELLO_WORLD';
-        }  else if (caseType === 'dot') {
-            expectedText = 'hello.world';
-        }
-
-
-        await this.changeCase('kebab', 0, 0, 0, 11, 'hello world', 'hello-world');
+    constructor(){
+        this.transform = new Transform();
     }
 
+    public async basicTextTest(caseType: ConvertCaseType) {
+        let text = this.transform.exampleBase;
 
+        if (caseType === this.transform.lower) {
+            text =  text.toUpperCase();
+        } else if (caseType === this.transform.none) {
+            text =  'Hello.World';
+        }
 
-
-
+        await this.changeCase(caseType.name, 0, 0, 0, text.length, 'hello world', 'hello-world');
+    }
 
     public async changeCase(caseType: string, startLine: number, startPostion: number, endLine: number, endPosition: number, content:string, expectedContent: string) {
         const document = await vscode.workspace.openTextDocument({ content: content });
