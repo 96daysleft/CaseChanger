@@ -1,7 +1,7 @@
 import * as cases from "change-case";
 import { ConvertCaseType } from './convertCaseType';
 
-export class ConvertCaseTypes {
+export class Transform {
     public readonly camel: ConvertCaseType;
     public readonly constant: ConvertCaseType;
     public readonly dot: ConvertCaseType;
@@ -74,8 +74,4 @@ export class ConvertCaseTypes {
     private getCaseTypeInstance(caseType: string): ConvertCaseType | undefined {
         return (this as any)[caseType];
     }
-
-
-
-
 }

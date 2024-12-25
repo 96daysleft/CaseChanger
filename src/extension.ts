@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { EOL } from 'os';
 import { transformCase, caseTypes } from './transformCase';
+import { Transform } from './transform';
+import { convert}
 import { Console } from 'console';
 
 
@@ -37,7 +39,10 @@ async function changeTextCase(caseType: string) {
 
             const lineRange = new vscode.Range(lineIndex, lineStart, lineIndex, lineEnd);
             const lineText = document.getText(lineRange);
-            const transformedText = transformCase(lineText, caseType);
+            //const transformedText = transformCase(lineText, caseType);
+            const transform = new Transform();
+
+            const transformedText = transform.transformCase(lineText, caseType);
 
             console.log(`linetext:${lineText}`);
 
