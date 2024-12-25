@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import { EOL } from 'os';
 import { transformCase, caseTypes } from './transformCase';
 import { Transform } from './transform';
-import { convert}
 import { Console } from 'console';
 
 
@@ -15,13 +14,14 @@ async function changeTextCase(caseType: string) {
     const document = editor.document;
     const selection = editor.selection;
     const selections = editor.selections;
+    const transform = new Transform();
 
 
     if (selection.isSingleLine || selections.length > 1) {
       editor.edit(editBuilder => {
         selections.forEach(selection => {
           const selectedText = editor.document.getText(selection);
-          const transformedText = transformCase(selectedText, caseType);
+          const transformedText = transform.transformCase(selectedText, caseType);
           editBuilder.replace(selection, transformedText);
         });
       });
@@ -40,7 +40,7 @@ async function changeTextCase(caseType: string) {
             const lineRange = new vscode.Range(lineIndex, lineStart, lineIndex, lineEnd);
             const lineText = document.getText(lineRange);
             //const transformedText = transformCase(lineText, caseType);
-            const transform = new Transform();
+            
 
             const transformedText = transform.transformCase(lineText, caseType);
 

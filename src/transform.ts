@@ -28,6 +28,7 @@ export class Transform {
         this.none = new ConvertCaseType('none',cases.noCase );
         this.capital = new ConvertCaseType('capital', cases.capitalCase);
         this.upper = new ConvertCaseType('upper', this.toUpper );
+
     }
 
     private toUpper(text:string):string{
