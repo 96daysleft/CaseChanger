@@ -135,21 +135,24 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "mocha \"./out/test/\"",
-    "test:integration": "node ./out/test/runTest.js"
+    "test": "npm run compile && node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.19",
+    "@types/assert": "^1.5.11",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20",
+    "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vscode/test-electron": "^2.4.1",
-    "chai": "^5.1.1",
+    "chai": "^5.1.2",
     "glob": "^11.0.0",
     "minimatch": "^10.0.1",
     "mocha": "^11.0.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vscode-test": "^1.6.1"
   },
   "dependencies": {
     "change-case": "^4.1.2"

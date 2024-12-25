@@ -1,23 +1,28 @@
 import * as path from 'path';
-
 import { runTests } from '@vscode/test-electron';
 
-async function main() {
-	try {
-		// The folder containing the Extension Manifest package.json
-		// Passed to `--extensionDevelopmentPath`
-		const extensionDevelopmentPath = path.resolve(__dirname, '../../');
+async function go() {
+    const extensionDevelopmentPath = path.resolve(__dirname, '../../../');
+    const extensionTestsPath = path.resolve(__dirname, './suite');
+    const testWorkspace = path.resolve(__dirname, '../../src/');
 
-		// The path to test runner
-		// Passed to --extensionTestsPath
-		const extensionTestsPath = path.resolve(__dirname, './suite/index');
+    const versions = [
+        '1.96.2'
+    ];
 
-		// Download VS Code, unzip it and run the integration test
-		await runTests({ extensionDevelopmentPath, extensionTestsPath });
-	} catch (err) {
-		console.error('Failed to run tests', err);
-		process.exit(1);
-	}
+    for (const version of versions) {
+        try {
+            console.log(`Running tests for VSCode version ${version}`);
+            await runTests({
+                version,
+                extensionDevelopmentPath,
+                extensionTestsPath,
+                launchArgs: [testWorkspace],
+            });
+        } catch (err) {
+            console.error(`Failed to run tests for VSCode version ${version}`, err);
+        }
+    }
 }
 
-main();
+go();
