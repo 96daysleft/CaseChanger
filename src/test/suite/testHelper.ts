@@ -45,7 +45,6 @@ export class TestHelper {
         console.log(`Testing ${caseType}  with ${oldText}  == ${updatedText}`);
 
         assert.strictEqual(updatedText, expectedContent);
-
     }
 
 

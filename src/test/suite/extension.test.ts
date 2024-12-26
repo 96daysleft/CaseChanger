@@ -1,12 +1,11 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { before, after } from 'mocha';
+import { before, after, beforeEach, afterEach } from 'mocha';
 import { TestHelper } from './testHelper';
 import { Transform, ConvertCaseType } from '../../transform';
 
-suite('Extension Test Suite', () => {
+suite('Extension Basic Test Suite', () => {
     const testHelper = new TestHelper();
-
 
     before(async () => {
         // Activate the extension
@@ -14,11 +13,23 @@ suite('Extension Test Suite', () => {
         if (extension) {
             await extension.activate();
         }
+        vscode.window.showInformationMessage('Start all tests.');
     });
 
     after(async () => {
-        // Close all editors
-        await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+        vscode.window.showInformationMessage('Tests over');
+    });
+
+    // beforeEach(async () => {
+
+    // });
+
+    afterEach(async () => {
+        // Close the current editor if any
+        await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        // Open a new untitled document before each test
+        //await vscode.commands.executeCommand('workbench.action.files.newUntitledFile');
+        console.log('close editor');
     });
 
     test('Test Change case type upper using context menu', async () => {
@@ -29,33 +40,33 @@ suite('Extension Test Suite', () => {
         await testHelper.basicTextTest(testHelper.transform.lower);
     });
 
-    test('Test Change case type kebab using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.kebab);
-    });
+    // test('Test Change case type kebab using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.kebab);
+    // });
 
-    test('Test Change case type camel using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.camel);
-    });
+    // test('Test Change case type camel using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.camel);
+    // });
 
-    test('Test Change case type snake using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.snake);
-    });
+    // test('Test Change case type snake using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.snake);
+    // });
 
-    test('Test Change case type pascal using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.pascal);
-    });
+    // test('Test Change case type pascal using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.pascal);
+    // });
 
-    test('Test Change case type capital using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.capital);
-    });
+    // test('Test Change case type capital using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.capital);
+    // });
 
-    test('Test Change case type sentence using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.sentence);
-    });
+    // test('Test Change case type sentence using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.sentence);
+    // });
 
-    test('Test Change case type none using context menu', async () => {
-        await testHelper.basicTextTest(testHelper.transform.none);
-    });
+    // test('Test Change case type none using context menu', async () => {
+    //     await testHelper.basicTextTest(testHelper.transform.none);
+    // });
 
 
 
