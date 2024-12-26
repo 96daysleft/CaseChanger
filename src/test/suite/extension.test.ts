@@ -5,9 +5,13 @@ import { TestHelper } from './testHelper';
 import { Transform, ConvertCaseType } from '../../transform';
 
 suite('Extension Basic Test Suite', () => {
-    const testHelper = new TestHelper();
+
+    suiteTeardown(() => {
+        vscode.window.showInformationMessage('All tests done!');
+    });
 
     before(async () => {
+        await vscode.commands.executeCommand('workbench.action.closeAllEditors');
         // Activate the extension
         const extension = vscode.extensions.getExtension('extension.changeCase.id');
         if (extension) {
@@ -17,26 +21,29 @@ suite('Extension Basic Test Suite', () => {
     });
 
     after(async () => {
+        await vscode.commands.executeCommand('workbench.action.closeAllEditors');
         vscode.window.showInformationMessage('Tests over');
     });
 
-    // beforeEach(async () => {
-
-    // });
-
-    afterEach(async () => {
-        // Close the current editor if any
+    beforeEach(async () => {
         await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
-        // Open a new untitled document before each test
-        //await vscode.commands.executeCommand('workbench.action.files.newUntitledFile');
-        console.log('close editor');
     });
 
-    test('Test Change case type upper using context menu', async () => {
+    // afterEach(async () => {
+    //     // Close the current editor if any
+    //     
+    //     // Open a new untitled document before each test
+    //     //await vscode.commands.executeCommand('workbench.action.files.newUntitledFile');
+    //     console.log('close editor');
+    // });
+
+    test('Test Change case type upper using context menu', async  () => {
+        const testHelper = new TestHelper();
         await testHelper.basicTextTest(testHelper.transform.upper);
     });
 
-    test('Test Change case type lower using context menu', async () => {
+    test('Test Change case type lower using context menu', async  () => {
+        const testHelper = new TestHelper();
         await testHelper.basicTextTest(testHelper.transform.lower);
     });
 

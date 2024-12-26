@@ -40,9 +40,11 @@ export class TestHelper {
         await vscode.commands.executeCommand(runExtension);
 
         // Verify the text has been changed
-        const updatedText = document.getText();
+        const updatedText = editor.document.getText(editor.selection);
 
-        console.log(`Testing ${caseType}  with ${oldText}  == ${updatedText}`);
+        console.log(`Testing ${caseType}  updated ${oldText}  to ${updatedText}`);
+
+        console.log(`Testing ${caseType}  ${updatedText}  should be equal to ${expectedContent}`);
 
         assert.strictEqual(updatedText, expectedContent);
     }
