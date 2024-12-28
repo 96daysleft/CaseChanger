@@ -17,7 +17,11 @@ async function go() {
                 version,
                 extensionDevelopmentPath,
                 extensionTestsPath,
-                launchArgs: [testWorkspace],
+                launchArgs: [
+                    testWorkspace,
+                    // This disables all extensions except the one being testing
+			        '--disable-extensions',
+                ]
             });
         } catch (err) {
             console.error(`Failed to run tests for VSCode version ${version}`, err);

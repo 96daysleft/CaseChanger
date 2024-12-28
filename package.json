@@ -25,108 +25,108 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.changeCase.upper",
+        "command": "extension.caseChanger.upper",
         "title": "Change to UPPER CASE"
       },
       {
-        "command": "extension.changeCase.lower",
+        "command": "extension.caseChanger.lower",
         "title": "Change to lower case"
       },
       {
-        "command": "extension.changeCase.camel",
+        "command": "extension.caseChanger.camel",
         "title": "Change to camelCase"
       },
       {
-        "command": "extension.changeCase.kebab",
+        "command": "extension.caseChanger.kebab",
         "title": "Change to kebab-case"
       },
       {
-        "command": "extension.changeCase.pascal",
+        "command": "extension.caseChanger.pascal",
         "title": "Change to PascalCase"
       },
       {
-        "command": "extension.changeCase.capital",
+        "command": "extension.caseChanger.capital",
         "title": "Change to Capital Case"
       },
       {
-        "command": "extension.changeCase.constant",
+        "command": "extension.caseChanger.constant",
         "title": "Change to CONST_CASE"
       },
       {
-        "command": "extension.changeCase.dot",
+        "command": "extension.caseChanger.dot",
         "title": "Change to dot.case"
       },
       {
-        "command": "extension.changeCase.none",
+        "command": "extension.caseChanger.none",
         "title": "Change to no case"
       },
       {
-        "command": "extension.changeCase.sentence",
+        "command": "extension.caseChanger.sentence",
         "title": "Change to Sentence case"
       },
       {
-        "command": "extension.changeCase.snake",
+        "command": "extension.caseChanger.snake",
         "title": "Change to snake_case"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "submenu": "changeCase.case",
+          "submenu": "caseChanger.case",
           "group": "3_modification",
           "when": "editorHasSelection"
         }
       ],
-      "changeCase.case": [
+      "caseChanger.case": [
         {
-          "command": "extension.changeCase.upper",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.upper",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.lower",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.lower",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.camel",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.camel",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.kebab",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.kebab",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.pascal",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.pascal",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.capital",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.capital",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.constant",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.constant",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.dot",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.dot",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.none",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.none",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.sentence",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.sentence",
+          "group": "1_caseChanger"
         },
         {
-          "command": "extension.changeCase.snake",
-          "group": "1_changeCase"
+          "command": "extension.caseChanger.snake",
+          "group": "1_caseChanger"
         }
       ]
     },
     "submenus": [
       {
-        "id": "changeCase.case",
+        "id": "caseChanger.case",
         "label": "Change Case"
       }
     ]

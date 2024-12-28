@@ -5,6 +5,7 @@ import { TestHelper } from './testHelper';
 import { Transform, ConvertCaseType } from '../../transform';
 
 suite('Extension Basic Test Suite', () => {
+    const testHelper = new TestHelper();
 
     suiteTeardown(() => {
         vscode.window.showInformationMessage('All tests done!');
@@ -13,7 +14,7 @@ suite('Extension Basic Test Suite', () => {
     before(async () => {
         await vscode.commands.executeCommand('workbench.action.closeAllEditors');
         // Activate the extension
-        const extension = vscode.extensions.getExtension('extension.changeCase.id');
+        const extension = vscode.extensions.getExtension('extension.caseChanger.id');
         if (extension) {
             await extension.activate();
         }
@@ -26,25 +27,43 @@ suite('Extension Basic Test Suite', () => {
     });
 
     beforeEach(async () => {
-        await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        try {
+            // Close all editors before each test
+            await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+            // Open a new untitled document before each test
+            await vscode.commands.executeCommand('workbench.action.files.newUntitledFile');
+        } catch (error) {
+            console.error('Error in beforeEach:', error);
+            throw error;
+        }
     });
 
-    // afterEach(async () => {
-    //     // Close the current editor if any
-    //     
-    //     // Open a new untitled document before each test
-    //     //await vscode.commands.executeCommand('workbench.action.files.newUntitledFile');
-    //     console.log('close editor');
-    // });
-
-    test('Test Change case type upper using context menu', async  () => {
-        const testHelper = new TestHelper();
-        await testHelper.basicTextTest(testHelper.transform.upper);
+    afterEach(async () => {
+        try {
+            // Close all editors after each test
+            await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+        } catch (error) {
+            console.error('Error in afterEach:', error);
+            throw error;
+        }
     });
 
-    test('Test Change case type lower using context menu', async  () => {
-        const testHelper = new TestHelper();
-        await testHelper.basicTextTest(testHelper.transform.lower);
+    test('Test Change case type upper using context menu', async () => {
+        try {
+            await testHelper.basicTextTest(testHelper.transform.upper);
+        } catch (error) {
+            console.error('Test failed:', error);
+            throw error;
+        }
+    });
+
+    test('Test Change case type lower using context menu', async () => {
+        try {
+            await testHelper.basicTextTest(testHelper.transform.lower);
+        } catch (error) {
+            console.error('Test failed:', error);
+            throw error;
+        }
     });
 
     // test('Test Change case type kebab using context menu', async () => {
@@ -88,7 +107,7 @@ suite('Extension Basic Test Suite', () => {
     //     editor.selection = new vscode.Selection(startPos, endPos);
 
     //     // Run the context menu command to change case
-    //     await vscode.commands.executeCommand('extension.changeCase.kebab');
+    //     await vscode.commands.executeCommand('extension.caseChanger.kebab');
 
     //     // Verify the text has been changed
     //     const updatedText = document.getText();

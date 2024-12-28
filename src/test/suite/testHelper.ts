@@ -21,10 +21,10 @@ export class TestHelper {
             text =  'Hello.World';
         }
 
-        await this.changeCase(caseType.name, 0, 0, 0, text.length, text, caseType.example);
+        await this.caseChanger(caseType.name, 0, 0, 0, text.length, text, caseType.example);
     }
 
-    public async changeCase(caseType: string, startLine: number, startPostion: number, endLine: number, endPosition: number, content:string, expectedContent: string) {
+    public async caseChanger(caseType: string, startLine: number, startPostion: number, endLine: number, endPosition: number, content:string, expectedContent: string) {
         const document = await vscode.workspace.openTextDocument({ content: content });
         const editor = await vscode.window.showTextDocument(document);
 
@@ -33,7 +33,7 @@ export class TestHelper {
         const endPos = new vscode.Position(endLine, endPosition);
         editor.selection = new vscode.Selection(startPos, endPos);
         const oldText = editor.document.getText(editor.selection);
-        const runExtension = `extension.changeCase.${caseType}`;
+        const runExtension = `extension.caseChanger.${caseType}`;
         console.log(`extension: ${runExtension}`);
 
         // Run the context menu command to change case
