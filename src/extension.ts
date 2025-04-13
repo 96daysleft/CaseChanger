@@ -4,7 +4,7 @@ import { Transform } from './transform';
 import { Console } from 'console';
 
 
-const extensionNamespace = 'extension.changeCase';
+const extensionNamespace = 'extension.caseChanger';
 const transform = new Transform();
 
 async function changeTextCase(caseType: string) {

@@ -17,6 +17,7 @@ suite('Extension Basic Test Suite', () => {
         const extension = vscode.extensions.getExtension('extension.caseChanger.id');
         if (extension) {
             await extension.activate();
+            console.log('Extension activated');
         }
         vscode.window.showInformationMessage('Start all tests.');
     });
