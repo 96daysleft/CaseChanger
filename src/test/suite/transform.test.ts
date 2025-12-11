@@ -219,6 +219,7 @@ suite('Transform Unit Tests', () => {
 
     suite('Complex Input Tests', () => {
         test('should handle mixed case input', () => {
+        test('should handle mixed case input', () => {
             const result = transform.transformCase('HeLLo WoRLd', 'camel');
             assert.strictEqual(result, 'helloWorld');
         });
