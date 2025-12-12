@@ -295,4 +295,5 @@ suite('Transform Unit Tests', () => {
             assert.strictEqual(toLower('HELLO WORLD'), 'hello world');
         });
     });
+    });
 });

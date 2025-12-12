@@ -55,7 +55,7 @@ export async function activate(context: vscode.ExtensionContext) {
   transform.caseTypes.forEach((value) => {
     console.log(`loading ${value}`);
     let commandId = `${extensionNamespace}.${value}`;
-    let callback = function() { changeTextCase(value as string); };
+    let callback = () => { changeTextCase(value); };
   
     const disposable = vscode.commands.registerTextEditorCommand(commandId, callback);
     context.subscriptions.push(disposable);
