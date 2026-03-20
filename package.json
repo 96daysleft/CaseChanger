@@ -141,7 +141,7 @@
     "test:integration": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.19",
+    "@types/chai": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vscode/test-electron": "^2.4.1",
