@@ -30,7 +30,7 @@ const changeCaseFunctions = [
     { name: caseTypes.capital, func: cases.capitalCase},
     { name: caseTypes.constant, func: cases.constantCase},
     { name: caseTypes.dot, func: cases.dotCase},
-    { name: caseTypes.kebab, func: cases.paramCase},
+    { name: caseTypes.kebab, func: cases.kebabCase},
     { name: caseTypes.none, func:cases.noCase },
     { name: caseTypes.pascal, func:cases.pascalCase},
     { name: caseTypes.sentence, func: cases.sentenceCase},

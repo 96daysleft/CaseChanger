@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { EOL } from 'os';
-import { transformCase, caseTypes } from './transformCase';
+import { transformCase, caseTypes } from './transformCase.js';
 import { Console } from 'console';
 
 
