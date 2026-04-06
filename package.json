@@ -152,6 +152,6 @@
     "typescript": "^6.0.0"
   },
   "dependencies": {
-    "change-case": "^4.1.2"
+    "change-case": "^5.0.0"
   }
 }
