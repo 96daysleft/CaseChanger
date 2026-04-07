@@ -15,7 +15,7 @@
     "url": "https://github.com/jerky676/CaseChanger"
   },
   "engines": {
-    "vscode": "^1.79.0"
+    "vscode": "^1.110.0"
   },
   "categories": [
     "Other"
