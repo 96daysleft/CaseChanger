@@ -3,10 +3,17 @@ name: Publish to VSCode Marketplace
 on:
   workflow_dispatch:
 
-permissions: write-all
+permissions:
+  contents: read
+  packages: write
+  id-token: write      # required for keyless signing
+  attestations: write  # required to publish attestation
 
 jobs:
   buildpublish-vscode:
+    env:
+      EXTENSION_NAME: casechanger.vsix
+      SBOM_NAME: sbom.cdx.json
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,44 +30,37 @@ jobs:
       - name: Run compile
         run: npm run compile
 
+      - name: Package extnesion
+        run: npc vsce package --out ${EXTENSION_NAME}
+
       - name: Generate SBOM
         uses: anchore/sbom-action@v0
         with:
           path: .
           format: cyclonedx-json
-          output-file: sbom.cdx.json
+          output-file: ${SBOM_NAME}
 
       - name: Attest SBOM
         uses: actions/attest-sbom@v2
         with:
-          subject-path: extension.vsix
-          sbom-path: sbom.cdx.json
+          subject-path: ${EXTENSION_NAME}
+          sbom-path: ${SBOM_NAME}
 
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: extension.vsix
+          subject-path: ${EXTENSION_NAME}
 
       - name: Publish to VS Code Marketplace
-        run: npx vsce publish --packagePath extension.vsix -p ${{ secrets.VSCE_PAT }}
+        run: npx vsce publish --packagePath ${EXTENSION_NAME} -p ${{ secrets.VSCE_PAT }}
 
       - name: Publish to Open VSX
-        run: npx ovsx publish extension.vsix -p ${{ secrets.OVSX_PAT }}
+        run: npx ovsx publish ${EXTENSION_NAME} -p ${{ secrets.OVSX_PAT }}
           
-      # - name: Publish to Visual Studio Marketplace
-      #   uses: HaaLeo/publish-vscode-extension@v2
-      #   with:
-      #     pat: ${{ secrets.VSCE_PAT }}
-      #     registryUrl: https://marketplace.visualstudio.com
-
-      # - name: Publish to Open VSX Registry
-      #   uses: HaaLeo/publish-vscode-extension@v2
-      #   with:
-      #     pat: ${{ secrets.OPEN_VSX_TOKEN }}
 
       - name: Create GitHub Release with assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            extension.vsix
-            sbom.cdx.json
+            ${EXTENSION_NAME}
+            ${SBOM_NAME}
