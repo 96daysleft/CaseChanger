@@ -140,7 +140,8 @@
     "lint": "eslint src",
     "test": "mocha \"./out/test/\"",
     "test:integration": "node ./out/test/runTest.js",
-    "package": "vsce package --out casechanger.vsix"
+    "package": "vsce package --out casechanger.vsix",
+    "icon": "node ./scripts/generate-icon.mjs"
   },
   "devDependencies": {
     "@types/chai": "^5.0.0",
@@ -157,6 +158,7 @@
     "minimatch": "^10.2.3",
     "mocha": "12.0.0-rc.6",
     "ovsx": "^0.10.0",
+    "sharp": "^0.34.0",
     "typescript": "^6.0.0"
   },
   "dependencies": {
