@@ -8,11 +8,11 @@
     "color": "#110580",
     "theme": "dark"
   },
-  "publisher": "jerky676",
+  "publisher": "96daysleft",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jerky676/CaseChanger"
+    "url": "https://github.com/96daysleft/CaseChanger"
   },
   "engines": {
     "vscode": "^1.110.0"
