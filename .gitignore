@@ -45,3 +45,7 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+
+# Packaged extension / build artifacts
+*.vsix
+sbom.cdx.json
