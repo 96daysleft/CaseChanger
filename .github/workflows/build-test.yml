@@ -33,5 +33,11 @@ jobs:
       - name: Run unit tests
         run: npm test
 
+      - name: Install VS Code test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libnss3 libatk1.0-0t64 libatk-bridge2.0-0t64 \
+            libgtk-3-0t64 libgbm1 libasound2t64 libsecret-1-0
+
       - name: Run integration tests
         run: xvfb-run -a npm run test:integration
