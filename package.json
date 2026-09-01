@@ -8,11 +8,11 @@
     "color": "#110580",
     "theme": "dark"
   },
-  "publisher": "jerky676",
+  "publisher": "96daysleft",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jerky676/CaseChanger"
+    "url": "https://github.com/96daysleft/CaseChanger"
   },
   "engines": {
     "vscode": "^1.110.0"
@@ -137,9 +137,12 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "mocha \"./out/test/\"",
-    "test:integration": "node ./out/test/runTest.js"
+    "lint": "eslint src",
+    "test": "mocha",
+    "pretest:integration": "npm run compile",
+    "test:integration": "node ./out/test/runTest.js",
+    "package": "vsce package --out casechanger.vsix",
+    "icon": "node ./scripts/generate-icon.mjs"
   },
   "devDependencies": {
     "@types/chai": "^5.0.0",
@@ -149,11 +152,15 @@
     "@typescript-eslint/eslint-plugin": "^8.59.0",
     "@typescript-eslint/parser": "^8.0.0",
     "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^3.2.0",
     "chai": "^6.0.0",
-    "glob": "^13.0.0",
+    "glob": "^13.0.6",
     "minimatch": "^10.2.3",
     "mocha": "12.0.0-rc.6",
-    "typescript": "^6.0.0"
+    "ovsx": "^0.10.0",
+    "sharp": "^0.34.0",
+    "typescript": "^6.0.0",
+    "typescript-eslint": "^8.59.0"
   },
   "dependencies": {
     "change-case": "^5.0.0"

@@ -1,0 +1,88 @@
+name: Publish to VSCode Marketplace
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write      # create GitHub release
+  id-token: write      # required for keyless signing
+  attestations: write  # required to publish attestation
+
+jobs:
+  build-publish:
+    env:
+      EXTENSION_NAME: casechanger.vsix
+      SBOM_NAME: sbom.cdx.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Compile
+        run: npm run compile
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Install VS Code test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libnss3 libatk1.0-0t64 libatk-bridge2.0-0t64 \
+            libgtk-3-0t64 libgbm1 libasound2t64 libsecret-1-0
+
+      - name: Integration tests
+        run: xvfb-run -a npm run test:integration
+
+      - name: Package extension
+        run: npx vsce package --out "${EXTENSION_NAME}"
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: ${{ env.SBOM_NAME }}
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@v2
+        with:
+          subject-path: ${{ env.EXTENSION_NAME }}
+          sbom-path: ${{ env.SBOM_NAME }}
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: ${{ env.EXTENSION_NAME }}
+
+      - name: Publish to VS Code Marketplace
+        run: npx vsce publish --packagePath "${EXTENSION_NAME}" -p "${VSCE_PAT}"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX
+        run: npx ovsx publish "${EXTENSION_NAME}" -p "${OVSX_PAT}"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      - name: Create GitHub Release with assets
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ env.EXTENSION_NAME }}
+            ${{ env.SBOM_NAME }}
