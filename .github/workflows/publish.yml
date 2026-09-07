@@ -70,11 +70,13 @@ jobs:
           subject-path: ${{ env.EXTENSION_NAME }}
 
       - name: Publish to VS Code Marketplace
+        if: ${{ vars.PUBLISH_VSCE == 'true'}}
         run: npx vsce publish --packagePath "${EXTENSION_NAME}" -p "${VSCE_PAT}"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to Open VSX
+        if: ${{ vars.PUBLISH_VSX == 'true'}}
         run: npx ovsx publish "${EXTENSION_NAME}" -p "${OVSX_PAT}"
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
