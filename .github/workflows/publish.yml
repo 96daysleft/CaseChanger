@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   build-publish:
+    environment: release
     env:
       EXTENSION_NAME: casechanger.vsix
       SBOM_NAME: sbom.cdx.json
