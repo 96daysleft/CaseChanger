@@ -17,6 +17,8 @@ permissions: write-all
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
 
     steps:
       - name: Checkout repository
@@ -40,10 +42,12 @@ jobs:
         run: npm ci
 
       - name: Increment version
+        id: version
         run: |
           npm version --no-git-tag-version ${{ github.event.inputs.version_type }} -m "Release version to v%s"
           VERSION="v$(node -p "require('./package.json').version")"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "New version: ${VERSION}"
           git add package.json
           git add package-lock.json
@@ -61,3 +65,10 @@ jobs:
           git push
           git tag ${VERSION}
           git push origin ${VERSION}
+
+  publish:
+    needs: release
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ needs.release.outputs.version }}
+    secrets: inherit

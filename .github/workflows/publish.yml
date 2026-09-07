@@ -1,10 +1,15 @@
-name: Publish to VSCode Marketplace
+name: Publish
 
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Git tag to check out and publish'
+        required: true
+        type: string
 
 permissions:
   contents: write      # create GitHub release
@@ -20,6 +25,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -82,7 +89,6 @@ jobs:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       - name: Create GitHub Release with assets
-        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
