@@ -87,6 +87,7 @@ jobs:
           config.model: "anthropic/claude-haiku-4-5-20251001"
           config.fallback_models: '["anthropic/claude-sonnet-4-5-20250929"]'
           ANTHROPIC.KEY: ${{ steps.anthropic_token.outputs.claude-token }}
+          github_action_config.pr_actions: '["opened", "reopened", "synchronize", "ready_for_review", "review_requested"]'
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "true"
