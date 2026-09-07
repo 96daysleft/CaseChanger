@@ -14,15 +14,24 @@ async function withEditor(initial: string): Promise<vscode.TextEditor> {
   return editor;
 }
 
-// The command applies its edit asynchronously without awaiting, so poll.
-async function waitForText(doc: vscode.TextDocument, expected: string): Promise<void> {
-  for (let i = 0; i < 50; i++) {
-    if (doc.getText() === expected) {
-      return;
-    }
-    await new Promise(r => setTimeout(r, 50));
+// The command applies its edit asynchronously without awaiting, so wait for the change event.
+async function waitForText(doc: vscode.TextDocument, expected: string, timeoutMs = 5000): Promise<void> {
+  if (doc.getText() === expected) {
+    return;
   }
-  assert.strictEqual(doc.getText(), expected);
+  await new Promise<void>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      subscription.dispose();
+      reject(new Error(`Timed out waiting for document text to become ${JSON.stringify(expected)}, got ${JSON.stringify(doc.getText())}`));
+    }, timeoutMs);
+    const subscription = vscode.workspace.onDidChangeTextDocument(e => {
+      if (e.document === doc && doc.getText() === expected) {
+        clearTimeout(timer);
+        subscription.dispose();
+        resolve();
+      }
+    });
+  });
 }
 
 suite('Extension Test Suite', () => {

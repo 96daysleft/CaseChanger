@@ -73,7 +73,7 @@ jobs:
             });
 
             if (!response.ok) {
-              throw new Error(`Anthropic token exchange failed: ${response.status} ${await response.text()}`);
+              throw new Error(`Anthropic token exchange failed: ${response.status}`);
             }
 
             const { access_token: token } = await response.json();
