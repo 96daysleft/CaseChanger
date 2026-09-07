@@ -6,6 +6,14 @@ src/**
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
+eslint.config.mjs
+.mocharc.json
+.nvmrc
+.github/**
+out/test/**
+scripts/**
+images/*.svg
+images/*.xcf
 **/*.map
 **/*.ts
 **/*.xcf

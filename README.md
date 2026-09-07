@@ -15,7 +15,7 @@ CaseChanger is a Visual Studio Code extension that allows you to quickly convert
 
 1. Launch Visual Studio Code.
 2. Go to the Extensions view (Ctrl+Shift+X).
-3. Search for "CaseChanger" by "jerky676".
+3. Search for "CaseChanger" by "96daysleft".
 4. Click on the "Install" button to install the extension.
 5. Restart Visual Studio Code (if required).
 
@@ -38,7 +38,7 @@ You can customize the keyboard shortcuts used by CaseChanger by following these 
 
 ## Contributing
 
-Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/jerky676/CaseChanger).
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/96daysleft/CaseChanger).
 
 ## License
 
@@ -46,4 +46,4 @@ This extension is licensed under the [MIT License](LICENSE).
 
 ---
 
-If you find this extension helpful, consider leaving a ⭐️ on the [GitHub repository](https://github.com/jerky676/CaseChanger). Happy coding!
+If you find this extension helpful, consider leaving a ⭐️ on the [GitHub repository](https://github.com/96daysleft/CaseChanger). Happy coding!
