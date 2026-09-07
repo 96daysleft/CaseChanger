@@ -17,18 +17,20 @@ permissions: write-all
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ github.ref }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Setup Git config
         run: |
@@ -40,10 +42,12 @@ jobs:
         run: npm ci
 
       - name: Increment version
+        id: version
         run: |
           npm version --no-git-tag-version ${{ github.event.inputs.version_type }} -m "Release version to v%s"
           VERSION="v$(node -p "require('./package.json').version")"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "New version: ${VERSION}"
           git add package.json
           git add package-lock.json
@@ -70,7 +74,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ needs.release.outputs.version }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
