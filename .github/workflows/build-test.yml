@@ -78,23 +78,15 @@ jobs:
 
             const { access_token: token } = await response.json();
             core.setSecret(token);
-            core.setOutput('token', token);
+            core.setOutput('claude-token', token);
 
       - name: PR Agent action step
         uses: the-pr-agent/pr-agent@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           config.model: "anthropic/claude-haiku-4-5-20251001"
-          config.fallback_models: '["anthropic/claude-sonnet-5"]'
-          ANTHROPIC.KEY: ${{ steps.anthropic_token.outputs.token }}
+          config.fallback_models: '["anthropic/claude-sonnet-4-5-20250929"]'
+          ANTHROPIC.KEY: ${{ steps.anthropic_token.outputs.claude-token }}
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "true"
-          pr_description.use_description_markers: "true"
-          pr_reviewer.ask_and_reflect: "true"
-          pr_description.enable_file_walkthrough: "false"
-          pr_description.keep_original_user_title: "true"
-          pr_description.add_original_user_description: "true"
-          pr_code_suggestions.num_code_suggestions: 0
-          pr_code_suggestions.summarize: "false"
-          pr_code_suggestions.rank_suggestions: "true"
