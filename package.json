@@ -2,7 +2,7 @@
   "name": "case-changer-context",
   "displayName": "Case Changer Context",
   "description": "Change the case of text using cmds or context menu",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "icon": "images/logo.png",
   "galleryBanner": {
     "color": "#110580",
