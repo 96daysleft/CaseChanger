@@ -1,5 +1,5 @@
 {
-  "name": "vscode-case-changer-context",
+  "name": "case-changer-context",
   "displayName": "Case Changer Context Menu",
   "description": "Change the case of text using cmds or context menu",
   "version": "1.5.0",

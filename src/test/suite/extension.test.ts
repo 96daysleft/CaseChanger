@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { caseTypes } from '../../transformCase.js';
 
-const EXT_ID = '96daysleft.vscode-case-changer-context';
+const EXT_ID = '96daysleft.case-changer-context';
 
 async function withEditor(initial: string): Promise<vscode.TextEditor> {
   const doc = await vscode.workspace.openTextDocument({ content: initial, language: 'plaintext' });
