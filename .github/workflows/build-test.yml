@@ -48,7 +48,7 @@ jobs:
 
       - name: Fetch GitHub OIDC token and exchange for an Anthropic access token
         id: anthropic_token
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           FEDERATION_RULE_ID: ${{ secrets.FEDERATION_RULE_ID }}
           ORGANIZATION_ID: ${{ secrets.ORGANIZATION_ID }}
