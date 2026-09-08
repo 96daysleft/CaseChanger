@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # Check out the PR branch itself (not the detached merge ref) so we can push back.
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -26,7 +29,20 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+
+      - name: Commit package-lock.json if it changed
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "package-lock.json unchanged"
+            exit 0
+          fi
+          echo "package-lock.json changed - committing"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "chore: update package-lock.json [skip ci]"
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Run compile
         run: npm run compile
