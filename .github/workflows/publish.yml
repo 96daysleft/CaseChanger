@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   publish:
-    uses: 96daysleft/github-workflows/.github/workflows/vscode-ext-publish.yml@v1
+    uses: 96daysleft/github-workflows/.github/workflows/vscode-ext-publish.yml@release
     with:
       tag: ${{ inputs.tag }}
       extension-name: casechanger.vsix

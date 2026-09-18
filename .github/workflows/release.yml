@@ -16,7 +16,7 @@ permissions: write-all
 
 jobs:
   release:
-    uses: 96daysleft/github-workflows/.github/workflows/vscode-ext-release.yml@v1
+    uses: 96daysleft/github-workflows/.github/workflows/vscode-ext-release.yml@release
     with:
       version-type: ${{ inputs.version_type }}
       extension-name: casechanger.vsix

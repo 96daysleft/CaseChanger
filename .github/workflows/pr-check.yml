@@ -1,18 +1,13 @@
-name: Test
+name: Pull Request Check
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
+    branches: [main]
     types: [opened, synchronize, reopened, ready_for_review, review_requested]
-
-permissions:
-  contents: read
 
 jobs:
   test:
-    uses: 96daysleft/github-workflows/.github/workflows/vscode-pr-check.yml@v1
+    uses: 96daysleft/github-workflows/.github/workflows/vscode-pr-check.yml@release
     with:
       run-pr-agent: true
     secrets: inherit
