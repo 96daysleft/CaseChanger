@@ -12,63 +12,20 @@ on:
           - minor
           - major
 
-permissions: write-all
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+  deployments: write
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          ref: main
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: '.nvmrc'
-          
-      - name: Setup Git config
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git status
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Increment version
-        id: version
-        run: |
-          npm version --no-git-tag-version ${{ github.event.inputs.version_type }} -m "Release version to v%s"
-          VERSION="v$(node -p "require('./package.json').version")"
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "New version: ${VERSION}"
-          git add package.json
-          git add package-lock.json
-
-      - name: Update Change Log
-        env:
-          CHANGE_LOG_FILE: "CHANGELOG.md"
-        run: |
-          npx auto-changelog --commit-limit false -p --output ${CHANGE_LOG_FILE}
-          git add ${CHANGE_LOG_FILE}
-
-      - name: Push commit and tag
-        run: |
-          git commit -m "Release version ${VERSION}"
-          git push
-          git tag ${VERSION}
-          git push origin ${VERSION}
-
-  publish:
-    needs: release
-    uses: ./.github/workflows/publish.yml
+    uses: 96daysleft/github-workflows/.github/workflows/vscode-ext-release.yml@release
     with:
-      tag: ${{ needs.release.outputs.version }}
-    secrets: inherit
+      version-type: ${{ inputs.version_type }}
+      extension-name: casechanger.vsix
+      publish-vsce: ${{ vars.PUBLISH_VSCE }}
+      publish-vsx: ${{ vars.PUBLISH_VSX }}
+    secrets:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
