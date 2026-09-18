@@ -28,6 +28,4 @@ jobs:
       extension-name: casechanger.vsix
       publish-vsce: ${{ vars.PUBLISH_VSCE }}
       publish-vsx: ${{ vars.PUBLISH_VSX }}
-    secrets:
-      VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    secrets: inherit
