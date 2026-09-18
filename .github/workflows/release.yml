@@ -12,7 +12,11 @@ on:
           - minor
           - major
 
-permissions: write-all
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+  deployments: write
 
 jobs:
   release:
